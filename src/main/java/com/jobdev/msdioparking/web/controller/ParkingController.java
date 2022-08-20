@@ -36,10 +36,29 @@ public class ParkingController {
         return ResponseEntity.ok(responseBody);
     }
 
-    @PostMapping
-    public ResponseEntity<ParkingDTO> create(@RequestBody ParkingDTO parkingDTO) {
+    @PostMapping("checkin")
+    public ResponseEntity<ParkingDTO> checkIn(@RequestBody ParkingDTO parkingDTO) {
         var requestBody = parkingMapper.toParking(parkingDTO);
-        var responseBody = parkingMapper.toParkingDTO(parkingService.create(requestBody));
+        var responseBody = parkingMapper.toParkingDTO(parkingService.checkIn(requestBody));
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
+    }
+
+    @PutMapping("checkout/{id}")
+    public ResponseEntity<ParkingDTO> checkOut(@PathVariable String id) {
+        var responseBody = parkingMapper.toParkingDTO(parkingService.checkOut(id));
+        return ResponseEntity.ok(responseBody);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ParkingDTO> update(@PathVariable String id, @RequestBody ParkingDTO parkingDTO) {
+        var requestBody = parkingMapper.toParking(parkingDTO);
+        var responseBody = parkingMapper.toParkingDTO(parkingService.update(id, requestBody));
+        return ResponseEntity.ok(responseBody);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        parkingService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
