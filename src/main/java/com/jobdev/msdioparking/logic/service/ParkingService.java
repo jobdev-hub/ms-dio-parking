@@ -4,6 +4,7 @@ import com.jobdev.msdioparking.domain.entity.Parking;
 import com.jobdev.msdioparking.domain.repository.ParkingRepository;
 import com.jobdev.msdioparking.logic.exception.ParkingNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -19,20 +20,24 @@ public class ParkingService {
         this.parkingRepository = parkingRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<Parking> findAll() {
         return parkingRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Parking findById(UUID id) {
         return parkingRepository.findById(id).orElseThrow(() -> new ParkingNotFoundException(id));
     }
 
+    @Transactional
     public Parking checkIn(Parking parking) {
         parking.setEntryDate(LocalDateTime.now());
         parkingRepository.save(parking);
         return parking;
     }
 
+    @Transactional
     public Parking checkOut(UUID id) {
         var parking = findById(id);
         parking.setExitDate(LocalDateTime.now());
@@ -41,6 +46,7 @@ public class ParkingService {
         return parking;
     }
 
+    @Transactional
     public Parking update(UUID id, Parking requestBody) {
         var parking = findById(id);
         mountUpdate(requestBody, parking);
@@ -48,6 +54,7 @@ public class ParkingService {
         return parking;
     }
 
+    @Transactional
     public void deleteById(UUID id) {
         findById(id);
         parkingRepository.deleteById(id);
