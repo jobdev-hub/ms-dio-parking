@@ -1,7 +1,7 @@
 package com.jobdev.msdioparking.web.controller;
 
 import com.jobdev.msdioparking.domain.dto.ParkingDTO;
-import com.jobdev.msdioparking.service.ParkingService;
+import com.jobdev.msdioparking.logic.service.ParkingService;
 import com.jobdev.msdioparking.web.mapper.ParkingMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
