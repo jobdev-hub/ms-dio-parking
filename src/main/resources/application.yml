@@ -1,14 +1,29 @@
-springdoc:
-  swagger-ui:
-    path: /doc
-  api-docs:
-    path: /parking/v1
-
 server:
   error:
     include-exception: false
     include-stacktrace: never
     include-message: always
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db-parking
+    driver-class-name: org.postgresql.Driver
+    username: local.dev.001
+    password: local.dev.001
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+springdoc:
+  swagger-ui:
+    path: /doc
+  api-docs:
+    path: /parking/v1
 
 parking-value-setting:
   oneHourValue: 5.00

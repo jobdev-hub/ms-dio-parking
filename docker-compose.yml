@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+
+  postgres-db:
+    container_name: ms-dio-parking
+    image: postgres:10-alpine
+    environment:
+      POSTGRES_USER: local.dev.001
+      POSTGRES_PASSWORD: local.dev.001
+      POSTGRES_DB: db-parking
+    ports:
+      - 5432:5432
+    volumes:
+      - ../postgres_data:/var/lib/postgres
