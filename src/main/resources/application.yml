@@ -3,3 +3,9 @@ springdoc:
     path: /doc
   api-docs:
     path: /parking/v1
+
+server:
+  error:
+    include-exception: false
+    include-stacktrace: never
+    include-message: always
