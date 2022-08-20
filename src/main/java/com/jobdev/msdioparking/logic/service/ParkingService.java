@@ -1,6 +1,7 @@
-package com.jobdev.msdioparking.service;
+package com.jobdev.msdioparking.logic.service;
 
 import com.jobdev.msdioparking.domain.entity.Parking;
+import com.jobdev.msdioparking.logic.exception.ParkingNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,7 +30,13 @@ public class ParkingService {
     }
 
     public Parking findById(String id) {
-        return parkingMap.get(id);
+        var parking = parkingMap.get(id);
+
+        if (parking == null) {
+            throw new ParkingNotFoundException(id);
+        }
+
+        return parking;
     }
 
     public Parking create(Parking parking) {
