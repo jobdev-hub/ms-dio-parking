@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/parking")
@@ -30,7 +31,7 @@ public class ParkingController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ParkingDTO> findById(@PathVariable String id) {
+    public ResponseEntity<ParkingDTO> findById(@PathVariable UUID id) {
         var parking = parkingService.findById(id);
         var responseBody = parkingMapper.toParkingDTO(parking);
         return ResponseEntity.ok(responseBody);
@@ -44,20 +45,20 @@ public class ParkingController {
     }
 
     @PutMapping("checkout/{id}")
-    public ResponseEntity<ParkingDTO> checkOut(@PathVariable String id) {
+    public ResponseEntity<ParkingDTO> checkOut(@PathVariable UUID id) {
         var responseBody = parkingMapper.toParkingDTO(parkingService.checkOut(id));
         return ResponseEntity.ok(responseBody);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ParkingDTO> update(@PathVariable String id, @RequestBody ParkingDTO parkingDTO) {
+    public ResponseEntity<ParkingDTO> update(@PathVariable UUID id, @RequestBody ParkingDTO parkingDTO) {
         var requestBody = parkingMapper.toParking(parkingDTO);
         var responseBody = parkingMapper.toParkingDTO(parkingService.update(id, requestBody));
         return ResponseEntity.ok(responseBody);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable String id) {
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
         parkingService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

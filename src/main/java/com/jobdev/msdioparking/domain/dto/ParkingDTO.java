@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class ParkingDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String id;
+    private UUID id;
 
 
     private String license;
