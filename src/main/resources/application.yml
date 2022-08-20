@@ -1,0 +1,5 @@
+springdoc:
+  swagger-ui:
+    path: /doc
+  api-docs:
+    path: /parking/v1
