@@ -3,6 +3,7 @@ package com.jobdev.msdioparking.service;
 import com.jobdev.msdioparking.domain.entity.Parking;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -27,7 +28,20 @@ public class ParkingService {
         return new ArrayList<>(parkingMap.values());
     }
 
+    public Parking findById(String id) {
+        return parkingMap.get(id);
+    }
+
+    public Parking create(Parking parking) {
+        String id = getUUID();
+        parking.setId(id);
+        parking.setEntryDate(LocalDateTime.now());
+        parkingMap.put(id, parking);
+        return parking;
+    }
+
     private static String getUUID() {
         return UUID.randomUUID().toString().replace("-", "");
     }
+
 }
