@@ -27,3 +27,9 @@ parking-value-setting:
   oneHourValue: 5.00
   additionalPerHourValue: 2.00
   dayValue: 20.00
+
+app-security-in-memory:
+  user:
+    name: user
+    password: user.001
+    roles: USER

@@ -1,6 +1,7 @@
 package com.jobdev.msdioparking.domain.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.jobdev.msdioparking.domain.setting.AppSecurityInMemoryUserSetting;
+import com.jobdev.msdioparking.domain.setting.SpringDocSwaggerUiSetting;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,24 +16,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${springdoc.swagger-ui.path}")
-    private String swaggerUiPath;
+    private final AppSecurityInMemoryUserSetting appSecurityInMemoryUserSetting;
+    private final SpringDocSwaggerUiSetting springDocSwaggerUiSetting;
+
+    public SecurityConfig(AppSecurityInMemoryUserSetting appSecurityInMemoryUserSetting, SpringDocSwaggerUiSetting springDocSwaggerUiSetting) {
+        this.appSecurityInMemoryUserSetting = appSecurityInMemoryUserSetting;
+        this.springDocSwaggerUiSetting = springDocSwaggerUiSetting;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("user")
-                .password(passwordEncoder().encode("12345"))
-                .roles("USER")
-                .and()
-                .passwordEncoder(passwordEncoder());
+                .withUser(appSecurityInMemoryUserSetting.getName())
+                .password(passwordEncoder().encode(appSecurityInMemoryUserSetting.getPassword()))
+                .roles(appSecurityInMemoryUserSetting.getRoles())
+                .and().passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers(swaggerUiPath).permitAll()
+                .antMatchers(springDocSwaggerUiSetting.getPath()).permitAll()
                 .antMatchers("/v3/api-docs/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
