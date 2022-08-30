@@ -1,6 +1,6 @@
 package com.jobdev.msdioparking.web.controller;
 
-import com.jobdev.msdioparking.domain.dto.ParkingDTO;
+import com.jobdev.msdioparking.web.dto.ParkingDTO;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;

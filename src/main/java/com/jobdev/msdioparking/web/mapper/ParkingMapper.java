@@ -1,6 +1,6 @@
 package com.jobdev.msdioparking.web.mapper;
 
-import com.jobdev.msdioparking.domain.dto.ParkingDTO;
+import com.jobdev.msdioparking.web.dto.ParkingDTO;
 import com.jobdev.msdioparking.domain.entity.Parking;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
