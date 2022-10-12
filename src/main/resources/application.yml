@@ -22,7 +22,7 @@ spring:
 springdoc:
   swagger-ui:
     path: /api-docs
-    supported-submit-methods: []
+    supported-submit-methods: ["get", "post"]
 
 parking-value-setting:
   oneHourValue: 5.00
